@@ -23,13 +23,13 @@ class IMDBCreatorsScraper(Spider):
 
     scrapy_by_url = scrapy_by_urls['editors']
 
+    directory_path = os.getcwd()
+
     def start_requests(self):
 
         self.logger = logging.getLogger()
 
-        directory_path = os.getcwd()
-
-        if 'upwork_2' not in directory_path:
+        if 'upwork_2' not in self.directory_path:
 
             # Initialize the main ApifyClient instance
             client = ApifyClient(os.environ['APIFY_TOKEN'], api_url=os.environ['APIFY_API_BASE_URL'])
@@ -55,8 +55,13 @@ class IMDBCreatorsScraper(Spider):
             for user in users:
                 user_url = urljoin(response.url, user.xpath('@href').extract()[0].strip())
                 user_name = user.xpath('text()').extract()[0].strip()
-                yield {'Name': user_name,
-                       'URL': user_url}
+                user_dict = {'Name': user_name,
+                             'URL': user_url}
+                
+                if 'upwork_2' not in self.directory_path:
+                    apify.pushData(user_dict)
+                else:
+                    yield user_dict
 
         next_url = response.xpath('.//a[@rel="next"]/@href')
         if next_url and len(next_url) > 0:
