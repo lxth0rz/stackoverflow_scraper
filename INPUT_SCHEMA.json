@@ -8,7 +8,7 @@
             "type": "string",
             "description": "Select how to scrape users",
             "editor": "select",
-            "default": "us",
+            "default": "editors",
             "enum": ["reputation", "new_users", "voters", "editors", "moderators"],
             "enumTitles": ["Reputation", "New users", "Voters", "Editors", "Moderators"]
         },
