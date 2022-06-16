@@ -20,5 +20,5 @@
             "editor": "proxy"
         }
     },
-    "required": ["scrapyCode"]
+    "required": ["scrapeUsersBy"]
 }
