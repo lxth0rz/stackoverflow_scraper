@@ -12,6 +12,15 @@
             "enum": ["reputation", "new_users", "voters", "editors", "moderators"],
             "enumTitles": ["Reputation", "New users", "Voters", "Editors", "Moderators"]
         },
+        "filterBy": {
+            "title": "Filter By Time",
+            "type": "string",
+            "description": "Select the time frame",
+            "editor": "select",
+            "default": "month",
+            "enum": ["week", "month", "quarter", "year", "all"],
+            "enumTitles": ["week", "month", "quarter", "year", "all"]
+        },
         "proxyConfig": {
             "title": "Proxy",
             "type": "object",
@@ -20,5 +29,5 @@
             "editor": "proxy"
         }
     },
-    "required": ["scrapeUsersBy"]
+    "required": ["scrapeUsersBy", "filterBy"]
 }

@@ -40,6 +40,8 @@ class IMDBCreatorsScraper(Spider):
 
     directory_path = os.getcwd()
 
+    filter_by = 'month'
+
     def start_requests(self):
 
         self.logger = logging.getLogger()
@@ -57,7 +59,9 @@ class IMDBCreatorsScraper(Spider):
             actor_input = default_kv_store_client.get_record(os.environ['APIFY_INPUT_KEY'])['value']
             self.logger.info(actor_input)
 
+            self.filter_by = actor_input["filterBy"]
             self.scrapy_by_url = self.scrapy_by_urls[actor_input["scrapeUsersBy"]]
+            self.scrapy_by_url += "&filter={0}".format(self.filter_by)
             self.logger.info(self.scrapy_by_url)
 
         yield Request(url=self.scrapy_by_url,
@@ -84,5 +88,6 @@ class IMDBCreatorsScraper(Spider):
             next_url = next_url.extract()[0].strip()
             next_url = urljoin(response.url, next_url)
             yield Request(url=next_url,
+                          headers=self.headers,
                           callback=self.parse_overview)
 
