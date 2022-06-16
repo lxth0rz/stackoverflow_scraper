@@ -21,7 +21,22 @@ class IMDBCreatorsScraper(Spider):
                       'editors': 'https://stackoverflow.com/users?tab=editors',
                       'moderators': 'https://stackoverflow.com/users?tab=moderators', }
 
-    scrapy_by_url = scrapy_by_urls['editors']
+    scrapy_by_url = scrapy_by_urls['moderators'] # default one.
+
+    headers = {
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36",
+        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "accept-language": "en-US,en;q=0.9",
+        "cache-control": "max-age=0",
+        "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"102\", \"Google Chrome\";v=\"102\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "document",
+        "sec-fetch-mode": "navigate",
+        "sec-fetch-site": "none",
+        "sec-fetch-user": "?1",
+        "upgrade-insecure-requests": "1",
+    }
 
     directory_path = os.getcwd()
 
@@ -46,6 +61,7 @@ class IMDBCreatorsScraper(Spider):
             self.logger.info(self.scrapy_by_url)
 
         yield Request(url=self.scrapy_by_url,
+                      headers=self.headers,
                       callback=self.parse_overview)
 
     def parse_overview(self, response):
@@ -57,7 +73,7 @@ class IMDBCreatorsScraper(Spider):
                 user_name = user.xpath('text()').extract()[0].strip()
                 user_dict = {'Name': user_name,
                              'URL': user_url}
-                
+
                 if 'upwork_2' not in self.directory_path:
                     apify.pushData(user_dict)
                 else:

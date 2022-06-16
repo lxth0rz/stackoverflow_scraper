@@ -12,3 +12,4 @@ apify/__pycache__/__init__.cpython-39.pyc
 *.pyc
 *.csv
 *.pyc
+*.csv
