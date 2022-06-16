@@ -9,12 +9,6 @@ Apify.getValue('INPUT').then((input) => {
 
   if (input != null) {
 
-    // build spider
-    fs.writeFileSync('./actor/spiders/run.py', input.scrapyCode, (err) => {
-        if (err) console.log(err);
-        console.log('Successfully built scrapy spider.');
-    });
-
     // configure proxy
     var useProxy = false;
     var proxyAddress = `http://auto:${process.env.APIFY_PROXY_PASSWORD}@proxy.apify.com:8000`;
