@@ -3,6 +3,15 @@
     "type": "object",
     "schemaVersion": 1,
     "properties": {
+        "scrapeUsersBy": {
+            "title": "Scrape By",
+            "type": "string",
+            "description": "Select how to scrape users",
+            "editor": "select",
+            "default": "us",
+            "enum": ["reputation", "new_users", "voters", "editors", "moderators"],
+            "enumTitles": ["Reputation", "New users", "Voters", "Editors", "Moderators"]
+        },
         "proxyConfig": {
             "title": "Proxy",
             "type": "object",

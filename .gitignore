@@ -7,3 +7,8 @@ downloaded.tgz
 jobdir.tgz
 .vscode
 .eslintrc.json
+apify/__pycache__/__init__.cpython-39.pyc
+*.pyc
+*.pyc
+*.csv
+*.pyc
