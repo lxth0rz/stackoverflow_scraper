@@ -17,7 +17,7 @@
             "type": "string",
             "description": "Select the time frame",
             "editor": "select",
-            "default": "month",
+            "default": "week",
             "enum": ["week", "month", "quarter", "year", "all"],
             "enumTitles": ["week", "month", "quarter", "year", "all"]
         },
