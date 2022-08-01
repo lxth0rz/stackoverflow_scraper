@@ -42,6 +42,8 @@ class IMDBCreatorsScraper(Spider):
 
     filter_by = 'month'
 
+    dataset_client = None
+
     def start_requests(self):
 
         self.logger = logging.getLogger()
@@ -50,6 +52,7 @@ class IMDBCreatorsScraper(Spider):
 
             # Initialize the main ApifyClient instance
             client = ApifyClient(os.environ['APIFY_TOKEN'], api_url=os.environ['APIFY_API_BASE_URL'])
+            self.dataset_client = client.dataset('medh/my-dataset')
 
             # Get the resource subclient for working with the default key-value store of the actor
             default_kv_store_client = client.key_value_store(os.environ['APIFY_DEFAULT_KEY_VALUE_STORE_ID'])
@@ -79,7 +82,10 @@ class IMDBCreatorsScraper(Spider):
                              'URL': user_url}
 
                 if 'upwork_2' not in self.directory_path:
-                    apify.pushData(user_dict)
+                    # client.push
+                    # apify.pushData(user_dict)
+
+                    self.dataset_client.push_items(user_dict)
                 else:
                     yield user_dict
 
