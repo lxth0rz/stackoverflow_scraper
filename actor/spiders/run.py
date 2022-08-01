@@ -54,9 +54,9 @@ class IMDBCreatorsScraper(Spider):
             client = ApifyClient(os.environ['APIFY_TOKEN'], api_url=os.environ['APIFY_API_BASE_URL'])
 
             # create a named dataset
-            dataset_collection_client = client.datasets()
-            dataset_collection_client.get_or_create(name='myDataset4444')
-            self.dataset_client = client.dataset('MedH/myDataset4444')
+            # dataset_collection_client = client.datasets()
+            # dataset_collection_client.get_or_create(name='stackoverflow-users-urls-dataset')
+            # self.dataset_client = client.dataset('MedH/stackoverflow-users-urls-dataset')
 
             # Get the resource subclient for working with the default key-value store of the actor
             default_kv_store_client = client.key_value_store(os.environ['APIFY_DEFAULT_KEY_VALUE_STORE_ID'])
@@ -87,9 +87,9 @@ class IMDBCreatorsScraper(Spider):
 
                 if 'upwork_2' not in self.directory_path:
                     # client.push
-                    # apify.pushData(user_dict)
+                    apify.pushData(user_dict)
 
-                    self.dataset_client.push_items(user_dict)
+                    #self.dataset_client.push_items(user_dict)
                 else:
                     yield user_dict
 
